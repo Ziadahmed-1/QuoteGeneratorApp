@@ -24,21 +24,21 @@ function BackGround() {
 }
 
 function QuoteBox() {
-  // const { isLoading, error, data } = useFetch("https://ultima.rest/api/random");
-  // console.log(dat);
   const [quote, setQuote] = useState("");
 
-  async function fetchData() {
+  const fetchData = async () => {
     const response = await fetch("https://api.adviceslip.com/advice");
-    const json = await response.json();
-    setQuote(json.slip.advice);
-  }
-  fetchData();
+    const data = await response.json();
+    setQuote(data.slip.advice);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="quote-card">
       <div className="inner-space">
-        {" "}
         <h1>{quote}</h1>
         <button onClick={fetchData}>GIVE ME A QUOTE!</button>
       </div>
@@ -46,4 +46,4 @@ function QuoteBox() {
   );
 }
 
-export default App;
+export default QuoteBox;
